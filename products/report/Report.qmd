@@ -1,0 +1,75 @@
+---
+title: "Covid-19 in Switzerland"
+author: "Marie Louise"
+date: "`r date()`"
+format: 
+  html:
+    toc: true
+    toc-location: body 
+    code-fold: show
+    code-tools: true 
+    df-print: paged
+    embed-resources: true
+  pdf: 
+    toc: true
+---
+
+```{r}
+#| output: false
+#| label: Load Libraries
+
+library(here)
+library(tidyverse)
+library(lubridate)
+library(unibeCols)
+```
+
+## Introduction
+
+The aim of this file is to evaluate **Covid-19** cases in Switzerland.
+
+## Data
+
+We read and process the cases as reported by the \[Federal Office of Public Health\] (https://idd.bag.admin.ch/).
+
+```{r}
+#| output: false 
+#| label: Read data
+cases <- read.csv(here("data/raw/COVID19Cases_geoRegion(2).csv"))
+```
+
+
+```{r}
+# Process Data
+region <- "CH"
+window_start <- ymd("2020-09-01")
+window_end <- ymd("2020-11-30")
+cases <- cases |>
+  filter(geoRegion == region & datum >= window_start & datum <= window_end) |>
+  select(datum, entries)
+
+```
+
+@fig-cases shows the number of laboratory-confirmed cases of Covid-19 in CH from 
+
+```{r}
+#| label: fig-cases
+#| fig-cap: "Laboratory-confirmed cases of Covid-19 in Switzerland in 2020"
+#| fig-width: 8
+#| fig-height: 4
+#| dpi: 150
+ggplot(cases, aes (x = datum, y = entries)) + 
+  geom_bar(stat = "identity", fill = unibeRed()) + 
+  labs(x ="Time", y = "Laboratory confirmed cases") + 
+  theme_minimal()
+```
+
+## Conclusion
+
+### Covid-19 in Switzerland
+Here we write the summary aboud Covid-19 in general in CH.
+
+### Period from 09/2020 to 11/2000
+In this specific period... 
+
+
