@@ -59,7 +59,7 @@ cases <- cases |>
 #| fig-height: 4
 #| dpi: 150
 ggplot(cases, aes (x = datum, y = entries)) + 
-  geom_bar(stat = "identity", fill = unibeRed()) + 
+  geom_bar(stat = "identity", fill = unibeSaphire()) + 
   labs(x ="Time", y = "Laboratory confirmed cases") + 
   theme_minimal()
 ```
